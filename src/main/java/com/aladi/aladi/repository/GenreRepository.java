@@ -6,4 +6,6 @@ import com.aladi.aladi.entity.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
+    public Genre findByName(String name);
+
 }

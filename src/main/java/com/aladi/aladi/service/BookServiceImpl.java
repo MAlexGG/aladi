@@ -1,9 +1,13 @@
 package com.aladi.aladi.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import com.aladi.aladi.entity.Book;
 import com.aladi.aladi.entity.Editorial;
+import com.aladi.aladi.entity.Genre;
 import com.aladi.aladi.repository.BookRepository;
 
 @Service
@@ -11,16 +15,28 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final EditorialService editorialService;
+    private final GenreService genreService;
 
-    public BookServiceImpl(BookRepository bookRepository, EditorialService editorialService) {
+    public BookServiceImpl(BookRepository bookRepository, EditorialService editorialService, GenreService genreService) {
         this.bookRepository = bookRepository;
         this.editorialService = editorialService;
+        this.genreService = genreService;
     }
 
     @Override
     public Book createBook(Book book, String editorial) {
         Editorial foundEditorial = editorialService.findOrCreateEditorialByName(editorial.toLowerCase());
+
+        Set<Genre> genres = new HashSet<>(book.getGenres());
+        book.getGenres().clear();
+
+        for (Genre genre : genres) {
+            Genre foundGenre = genreService.findOrCreateByName(genre.getName());
+            book.getGenres().add(foundGenre); 
+        }
+
         book.setEditorial(foundEditorial);
+        
         return bookRepository.save(book);
     }
 

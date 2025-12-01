@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aladi.aladi.entity.Book;
 import com.aladi.aladi.service.BookService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class BookController {
     }
 
     @PostMapping("/{editorial}")
-    public ResponseEntity<Book> createBook(@RequestBody Book book, @PathVariable String editorial) {
+    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book, @PathVariable String editorial) {
         Book newBook = bookService.createBook(book, editorial);
         return new ResponseEntity<>(newBook, HttpStatus.CREATED);
     }
