@@ -1,6 +1,7 @@
 package com.aladi.aladi.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,11 @@ public class ReserveServiceImpl implements ReserveService {
         reserve.setReturnDate(returnDate);
 
         return reserveRepository.save(reserve);
+    }
+
+    @Override
+    public List<Reserve> getReservesByUser(Long userId) {
+        return reserveRepository.findByUsers_Id(userId);
     }
 
 }
