@@ -25,18 +25,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book, String editorial) {
-        Editorial foundEditorial = editorialService.findOrCreateEditorialByName(editorial.toLowerCase());
+        Editorial foundEditorial = editorialService.getEditorialByName(editorial);
+        if (foundEditorial == null || foundEditorial.getName().isEmpty()) {   
+            foundEditorial = editorialService.createEditorialByName(editorial.toLowerCase());
+        }
+        book.setEditorial(foundEditorial);
 
         Set<Genre> genres = new HashSet<>(book.getGenres());
         book.getGenres().clear();
 
         for (Genre genre : genres) {
-            Genre foundGenre = genreService.findOrCreateByName(genre.getName());
+            Genre foundGenre = genreService.findGenreByName(genre.getName().toLowerCase());
+            if(foundGenre == null) {
+                foundGenre = genreService.createGenreByName(genre.getName());
+            }
             book.getGenres().add(foundGenre); 
         }
-
-        book.setEditorial(foundEditorial);
-        
         return bookRepository.save(book);
     }
 

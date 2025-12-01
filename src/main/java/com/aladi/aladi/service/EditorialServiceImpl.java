@@ -15,13 +15,16 @@ public class EditorialServiceImpl implements EditorialService {
     }
 
     @Override
-    public Editorial findOrCreateEditorialByName(String name) {
+    public Editorial getEditorialByName(String name) {
         Editorial editorial = editorialRepository.findByName(name);
-        if (editorial == null) {
-            editorial = new Editorial();
-            editorial.setName(name);
-            editorial = editorialRepository.save(editorial);
-        }
+        return editorial;
+    }
+
+    @Override
+    public Editorial createEditorialByName(String name) {
+        Editorial editorial = new Editorial();
+        editorial.setName(name);
+        editorialRepository.save(editorial);
         return editorial;
     }
 

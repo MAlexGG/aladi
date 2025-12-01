@@ -15,13 +15,15 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Genre findOrCreateByName(String name) {
-        Genre genre = genreRepository.findByName(name.toLowerCase());
-        if (genre == null) {
-            genre = new Genre();
-            genre.setName(name.toLowerCase());
-            genre = genreRepository.save(genre);
-        }
+    public Genre findGenreByName(String name) {
+        return genreRepository.findByName(name.toLowerCase());
+    }
+
+    @Override
+    public Genre createGenreByName(String name) {
+        Genre genre = new Genre();
+        genre.setName(name.toLowerCase());
+        genre = genreRepository.save(genre);
         return genre;
     }
 

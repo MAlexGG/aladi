@@ -4,6 +4,7 @@ import com.aladi.aladi.entity.Editorial;
 
 public interface EditorialService {
 
-    public Editorial findOrCreateEditorialByName(String name);
+    public Editorial getEditorialByName(String name);
+    public Editorial createEditorialByName(String name);
 
 }

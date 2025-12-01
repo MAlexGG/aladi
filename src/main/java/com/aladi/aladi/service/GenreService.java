@@ -4,6 +4,7 @@ import com.aladi.aladi.entity.Genre;
 
 public interface GenreService {
 
-    public Genre findOrCreateByName(String name);
+    public Genre findGenreByName(String name);
+    public Genre createGenreByName(String name);
 
 }
