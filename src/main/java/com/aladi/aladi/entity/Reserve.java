@@ -1,6 +1,7 @@
 package com.aladi.aladi.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -29,20 +30,20 @@ public class Reserve {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime reserveDate;
+    private LocalDate reserveDate = LocalDate.now();
 
     @Column(nullable = false)
-    private LocalDateTime returnDate; 
+    private LocalDate returnDate; 
 
     @Column(nullable = false)
     private Boolean isReturned = false;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "reserve_books", joinColumns = @JoinColumn(name = "reserve_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "reserve_users", joinColumns = @JoinColumn(name = "reserve_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
 }

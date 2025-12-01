@@ -44,4 +44,10 @@ public class BookServiceImpl implements BookService {
         return bookRepository.save(book);
     }
 
+    @Override
+    public Book getBookById(Long id) {
+        Book book = bookRepository.findById(id).get();
+        return book;
+    }
+
 }
