@@ -6,4 +6,6 @@ import com.aladi.aladi.entity.Editorial;
 
 public interface EditorialRepository extends JpaRepository<Editorial, Long> {
 
+    Editorial findByName(String name);
+    
 }
