@@ -24,7 +24,7 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
-    public Reserve saveReserve(Reserve reserve, Long userId, Long bookId) {
+    public Reserve saveReserve(Reserve reserve, Long userId, Long bookId){
         User user = userService.getUserById(userId);
         reserve.getUsers().add(user);   
 
@@ -39,7 +39,11 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public List<Reserve> getReservesByUser(Long userId) {
-        return reserveRepository.findByUsers_Id(userId);
+        List<Reserve> reserves = reserveRepository.findByUsers_Id(userId);
+        if(reserves.isEmpty()) {
+            throw new RuntimeException("No se han encontrado reservas para el usuario con id: " + userId);
+        }
+        return reserves;    
     }
 
 }

@@ -21,7 +21,7 @@ public class EditorialServiceImpl implements EditorialService {
     }
 
     @Override
-    public Editorial createEditorialByName(String name) {
+    public Editorial createEditorialByName(String name) throws RuntimeException {
         Editorial editorial = new Editorial();
         editorial.setName(name);
         editorialRepository.save(editorial);

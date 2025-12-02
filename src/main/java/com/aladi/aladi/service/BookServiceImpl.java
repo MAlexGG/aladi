@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aladi.aladi.entity.Book;
 import com.aladi.aladi.entity.Editorial;
 import com.aladi.aladi.entity.Genre;
+import com.aladi.aladi.exception.EntityNotCreatedException;
 import com.aladi.aladi.repository.BookRepository;
 
 @Service
@@ -24,8 +25,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book createBook(Book book, String editorial) {
-        Editorial foundEditorial = editorialService.getEditorialByName(editorial);
+    public Book createBook(Book book, String editorial) throws RuntimeException {
+        
+            Editorial foundEditorial = editorialService.getEditorialByName(editorial);
         if (foundEditorial == null || foundEditorial.getName().isEmpty()) {   
             foundEditorial = editorialService.createEditorialByName(editorial.toLowerCase());
         }
@@ -41,12 +43,17 @@ public class BookServiceImpl implements BookService {
             }
             book.getGenres().add(foundGenre); 
         }
-        return bookRepository.save(book);
+        try {
+            return bookRepository.save(book);
+        } catch (Exception e) {
+            throw new EntityNotCreatedException(Book.class);
+        }
+        
     }
 
     @Override
     public Book getBookById(Long id) {
-        Book book = bookRepository.findById(id).get();
+        Book book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Libro con id: " + id + " no encontrado."));
         return book;
     }
 
