@@ -28,7 +28,7 @@ public class ReserveController {
     }
 
     @PostMapping("/user/{userId}/book/{bookId}")
-    public ResponseEntity<Reserve> creatReserve(@RequestBody Reserve reserve, @PathVariable Long userId, @PathVariable Long bookId) {
+    public ResponseEntity<Reserve> createReserve(@RequestBody Reserve reserve, @PathVariable Long userId, @PathVariable Long bookId) {
         return new ResponseEntity<>(reserveService.saveReserve(reserve, userId, bookId), HttpStatus.CREATED);
     }
     

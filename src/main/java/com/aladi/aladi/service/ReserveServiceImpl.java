@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aladi.aladi.entity.Book;
 import com.aladi.aladi.entity.Reserve;
 import com.aladi.aladi.entity.User;
+import com.aladi.aladi.exception.EntityNotCreatedException;
 import com.aladi.aladi.repository.ReserveRepository;
 
 @Service
@@ -34,7 +35,11 @@ public class ReserveServiceImpl implements ReserveService {
         LocalDate returnDate = LocalDate.now().plusDays(30);
         reserve.setReturnDate(returnDate);
 
-        return reserveRepository.save(reserve);
+        try {
+            return reserveRepository.save(reserve);
+        } catch (Exception e) {
+            throw new EntityNotCreatedException(Reserve.class);
+        }
     }
 
     @Override

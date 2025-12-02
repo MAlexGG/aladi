@@ -34,7 +34,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getMethodName(@PathVariable Long id) {
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
     }
     

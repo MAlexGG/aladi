@@ -3,6 +3,7 @@ package com.aladi.aladi.service;
 import org.springframework.stereotype.Service;
 
 import com.aladi.aladi.entity.User;
+import com.aladi.aladi.exception.EntityNotCreatedException;
 import com.aladi.aladi.repository.UserRepository;
 
 @Service
@@ -23,7 +24,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user) {
         user.setRole("USER");
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new EntityNotCreatedException(User.class);
+        }
+        
     }
 
 }

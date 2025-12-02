@@ -15,6 +15,7 @@ This is a simple API to learn relations Many to Many an One to Many. It has no D
 - POST - Create User: localhost:8080/api/v1/users
 - POST - Create Book: localhost:8080/api/v1/books/{editorial}
 - POST - Create Reserve: localhost:8080/api/v1/reserves/user/{userId}/book/{bookId}
+- GET - Book by Id: localhost:8080/api/v1/books/{id}
 - GET - Reserve by User: localhost:8080/api/v1/reserves/user/{userId}
 
 ### Important

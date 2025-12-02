@@ -31,13 +31,13 @@ public class Book {
     private Long id;
 
     @NotBlank //cuando se hagan DTOs se pasarán allí las validaciones de formato
-    @Column(nullable = false)   
+    @Column(nullable = false, length = 255)   
     private String title;
 
-    @Column(nullable = false)  
+    @Column(nullable = false, length = 255)  
     private String author;
 
-    @Column(nullable = false)  
+    @Column(nullable = false, length = 13, unique = true)  
     private String isbn;
 
     @ManyToMany(fetch = FetchType.LAZY)
