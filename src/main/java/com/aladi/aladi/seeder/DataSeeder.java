@@ -41,15 +41,15 @@ public class DataSeeder implements CommandLineRunner {
 
         if(editorialRepository.count() == 0) {
             Editorial editorial = new Editorial();
-            editorial.setName("Capitán Swing Libros");
+            editorial.setName("planeta");
             editorialRepository.save(editorial);
         }
 
         if(genreRepository.count() == 0) {
             Genre pedagogy = new Genre();
-            pedagogy.setName("Pedagogía");
+            pedagogy.setName("pedagogía");
             Genre psychology = new Genre();
-            psychology.setName("Psicología");
+            psychology.setName("psicología");
             genreRepository.saveAll(List.of(pedagogy, psychology));
         }
 
@@ -59,10 +59,10 @@ public class DataSeeder implements CommandLineRunner {
             book.setAuthor("bell hooks");
             book.setIsbn("9788412281842");
             book.setGenres(Set.of(
-                genreRepository.findByName("Pedagogía"),
-                genreRepository.findByName("Psicología")
+                genreRepository.findByName("pedagogía"),
+                genreRepository.findByName("psicología")
             ));
-            book.setEditorial(editorialRepository.findByName("Capitán Swing Libros"));
+            book.setEditorial(editorialRepository.findByName("planeta"));
             bookRepository.save(book);
         }   
         

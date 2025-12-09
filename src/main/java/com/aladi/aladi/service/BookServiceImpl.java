@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
         for (Genre genre : genres) {
             Genre foundGenre = genreService.findGenreByName(genre.getName().toLowerCase());
             if(foundGenre == null) {
-                foundGenre = genreService.createGenreByName(genre.getName());
+                foundGenre = genreService.createGenreByName(genre.getName().toLowerCase());
             }
             book.getGenres().add(foundGenre); 
         }
