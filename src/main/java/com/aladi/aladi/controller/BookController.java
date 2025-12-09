@@ -8,13 +8,14 @@ import com.aladi.aladi.service.BookService;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 
 @RestController
@@ -36,6 +37,12 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
+    }
+    
+    @GetMapping("/editorial/{editorialName}")
+    public ResponseEntity<List<Book>> getAllBooksByEditorial(@PathVariable String editorialName) {
+        List<Book> books = bookService.getAllBooksByEditorial(editorialName);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
     
     

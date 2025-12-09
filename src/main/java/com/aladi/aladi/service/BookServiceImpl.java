@@ -1,6 +1,7 @@
 package com.aladi.aladi.service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -55,6 +56,15 @@ public class BookServiceImpl implements BookService {
     public Book getBookById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Libro con id: " + id + " no encontrado."));
         return book;
+    }
+
+    @Override
+    public List<Book> getAllBooksByEditorial(String editorialName) {
+        List<Book> books = bookRepository.findAllByEditorial_Name(editorialName);
+        if(books.isEmpty()) {
+            throw new RuntimeException("No se encontraron libros para la editorial: " + editorialName);
+        }
+        return books;
     }
 
 }
